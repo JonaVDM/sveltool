@@ -9,7 +9,7 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "sveltool",
-	Short: "A simple tool to do things in svelte for me",
+	Short: "A simple tool that setups things in a svelte project",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

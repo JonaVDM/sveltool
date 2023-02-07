@@ -12,8 +12,6 @@ import (
 var tailwindCmd = &cobra.Command{
 	Use:   "tailwind",
 	Short: "Add Tailwind to the application",
-	Long: `Add Tailwind to the application.
-This install tailwind and sets up the configuration files for it.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Installing packages")
 		manager, _ := cmd.Flags().GetString("manager")
