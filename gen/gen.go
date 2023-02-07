@@ -91,3 +91,7 @@ func LogoutServer() error {
 	}
 	return gen("src/routes/(auth)/logout/+server.ts", pbLogoutServerTemplate())
 }
+
+func PocketbaseDocker() error {
+	return gen("docker-compose.yml", pbDockerComposeTemplate())
+}
