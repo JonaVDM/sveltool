@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"os/exec"
 
 	"github.com/jonavdm/sveltool/gen"
+	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -17,11 +17,7 @@ This install tailwind and sets up the configuration files for it.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Installing packages")
 		manager, _ := cmd.Flags().GetString("manager")
-		installCmd := "install"
-		if manager == "yarn" {
-			installCmd = "add"
-		}
-		if err := exec.Command(manager, installCmd, "-D", "tailwindcss", "postcss", "autoprefixer").Run(); err != nil {
+		if err := utils.InstallPackages(manager, "tailwindcss", "postcss", "autoprefixer"); err != nil {
 			fmt.Printf("Could not intsall tailwind: %s\n", err.Error())
 		}
 

@@ -28,3 +28,7 @@ func TailwindStyles() error {
 func TailwindLayout() error {
 	return gen("src/routes/+layout.svelte", tailwindLayoutTemplate())
 }
+
+func PicoCssLayout() error {
+	return gen("src/routes/+layout.svelte", picoCssLayoutTemplate())
+}

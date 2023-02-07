@@ -33,3 +33,11 @@ func tailwindLayoutTemplate() []byte {
 
 <slot />`)
 }
+
+func picoCssLayoutTemplate() []byte {
+	return []byte(`<script>
+	import '@picocss/pico';
+</script>
+
+<slot />`)
+}
