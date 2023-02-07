@@ -32,3 +32,16 @@ func TailwindLayout() error {
 func PicoCssLayout() error {
 	return gen("src/routes/+layout.svelte", picoCssLayoutTemplate())
 }
+
+func PocketBase() error {
+	if _, err := os.Stat("src/lib"); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir("src/lib", os.ModePerm)
+		if err != nil {
+			return err
+		}
+	} else if err != nil {
+		return err
+	}
+
+	return gen("src/lib/pocketbase.ts", pocketbaseLib())
+}
