@@ -15,7 +15,7 @@ var tailwindCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Installing packages")
 		manager, _ := cmd.Flags().GetString("manager")
-		if err := utils.InstallPackages(manager, "tailwindcss", "postcss", "autoprefixer"); err != nil {
+		if err := utils.InstallPackages(manager, "tailwindcss", "postcss", "autoprefixer", "@tailwindcss/forms"); err != nil {
 			fmt.Printf("Could not intsall tailwind: %s\n", err.Error())
 		}
 

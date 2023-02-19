@@ -5,9 +5,15 @@ func tailwindConfigTemplate() []byte {
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        title: '2rem'
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
 }`)
 }
 
