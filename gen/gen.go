@@ -28,9 +28,5 @@ func simpleTemplate(source, dest string) error {
 }
 
 func PicoCssLayout() error {
-	return gen("src/routes/+layout.svelte", picoCssLayoutTemplate())
-}
-
-func PocketbaseDocker() error {
-	return gen("docker-compose.yml", pbDockerComposeTemplate())
+	return simpleTemplate("misc/picocss-layout.svelte", "src/routes/+layout.svelte")
 }
