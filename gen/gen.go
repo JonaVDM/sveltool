@@ -1,11 +1,15 @@
 package gen
 
 import (
+	"embed"
 	"errors"
 	"os"
 
 	"github.com/jonavdm/sveltool/utils"
 )
+
+//go:embed templates/*
+var templates embed.FS
 
 func gen(filename string, contents []byte) error {
 	if _, err := os.Stat(filename); err == nil {
@@ -15,20 +19,14 @@ func gen(filename string, contents []byte) error {
 	return os.WriteFile(filename, contents, 0664)
 }
 
-func TailwindConfig() error {
-	return gen("tailwind.config.cjs", tailwindConfigTemplate())
-}
+func simpleTemplate(source, dest string) error {
+	contents, err := templates.ReadFile("templates/" + source)
 
-func PostCssConfig() error {
-	return gen("postcss.config.cjs", tailwindPostcssConfigTemplate())
-}
+	if err != nil {
+		return err
+	}
 
-func TailwindStyles() error {
-	return gen("src/app.css", tailwindStylesTemplate())
-}
-
-func TailwindLayout() error {
-	return gen("src/routes/+layout.svelte", tailwindLayoutTemplate())
+	return gen(dest, contents)
 }
 
 func PicoCssLayout() error {
