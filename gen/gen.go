@@ -4,6 +4,7 @@ import (
 	"embed"
 	"errors"
 	"os"
+	"text/template"
 )
 
 //go:embed templates/*
@@ -27,6 +28,21 @@ func simpleTemplate(source, dest string) error {
 	return gen(dest, contents)
 }
 
-func PicoCssLayout() error {
-	return simpleTemplate("misc/picocss-layout.svelte", "src/routes/+layout.svelte")
+func complexTemplate(source, dest string, args any) error {
+	if _, err := os.Stat(dest); err == nil {
+		return errors.New("file already exists")
+	}
+
+	contents, err := templates.ReadFile("templates/" + source)
+	if err != nil {
+		return err
+	}
+
+	tmpl := template.Must(template.New(source).Parse(string(contents)))
+	file, err := os.Create(dest)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	return tmpl.Execute(file, args)
 }
