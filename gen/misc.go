@@ -25,3 +25,17 @@ func SvelteStore(name string) error {
 
 	return complexTemplate("misc/store.ts", "src/lib/"+strings.ToLower(name)+".ts", args)
 }
+
+func NavBar(auth bool) error {
+	if err := utils.CreateFolder("src/lib"); err != nil {
+		return err
+	}
+
+	args := struct {
+		Auth bool
+	}{
+		auth,
+	}
+
+	return complexTemplate("misc/nav.svelte", "src/lib/Nav.svelte", args)
+}
