@@ -1,0 +1,14 @@
+{{if .Binds}}<script lang="ts">
+{{range $index, $element := .Fields}} let {{.Name}} = "";
+{{end}}</script>
+
+{{end}}<form method="post">
+  {{range $index, $element := .Fields}}{{if ne $index 0}}
+
+  {{end}}<label>
+    {{.Label}}
+    <input type="{{.Kind}}" name="{{.Name}}"{{if $.Binds}} bind:value={{"{"}}{{.Name}}{{"}"}}{{end}} />
+  </label>{{end}}
+  
+  <button type="submit">Submit</button>
+</form>
