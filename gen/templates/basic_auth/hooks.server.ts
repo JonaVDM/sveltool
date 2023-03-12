@@ -5,14 +5,16 @@ export const handle: Handle = async ({ event, resolve }) => {
   const session = cookies.filter(c => c.startsWith('session='))[0]?.split('=')[1];
 
   // event.locals.api = new Api();
-  // event.locals.api.setToken(session);
+  // if (session) {
+  //   event.locals.api.setToken(session);
+  // }
 
   const response = await resolve(event);
 
   // if (event.locals.api.isLoggedIn()) {
   //   response.headers.set(
   //     'set-cookie',
-  //     `session=${session};`
+  //     event.locals.api.toCookie(),
   //   );
   // }
 

@@ -11,6 +11,7 @@ export const actions: Actions = {
     try {
       // TODO: log user in.
       // const token = await locals.api.login(email, password);
+      // locals.api.setToken(token);
     } catch (e) {
       return fail(401, {
         message: 'Invalid credentials',
