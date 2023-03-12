@@ -13,7 +13,7 @@ var apiWrapperCmd = &cobra.Command{
 	Short: "Generate a simple API wrapper, works okay with basic auth",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Print("Copying api.ts: ")
-		if err := gen.BasicAuthLayout(); err != nil {
+		if err := gen.BasicApi(); err != nil {
 			fmt.Println("something went wrong!", err)
 		} else {
 			fmt.Println("Ok")
