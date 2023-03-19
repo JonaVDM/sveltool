@@ -26,3 +26,18 @@ func Form(fields []FormItem, binds bool) error {
 
 	return tmpl.Execute(os.Stdout, data)
 }
+
+func FormActions(fields []string) error {
+	contents, err := templates.ReadFile("templates/form/action.ts")
+	if err != nil {
+		return err
+	}
+
+	tmpl := template.Must(template.New("form-action").Parse(string(contents)))
+
+	data := map[string]any{
+		"Fields": fields,
+	}
+
+	return tmpl.Execute(os.Stdout, data)
+}
