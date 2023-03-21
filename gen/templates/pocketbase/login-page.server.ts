@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { ClientResponseError } from 'pocketbase';
-import type { Actions, PageServerLoad } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
+import type { Actions, PageServerLoad } from './$types';
+import type { ClientResponseError } from 'pocketbase';
 
 const schema = z.object({
   email: z.string().email(),

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Input from "$lib/Input.svelte";
-  import { superForm } from "sveltekit-superforms/client";
-  import type { PageData } from "./$types";
+  import { superForm } from 'sveltekit-superforms/client';
+  import Input from '$lib/Input.svelte';
+  import type { PageData } from './$types';
 
   export let data: PageData;
 
