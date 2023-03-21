@@ -14,12 +14,6 @@ var formCmd = &cobra.Command{
 	Use:   "form [name:type]",
 	Short: "Generate a simple form in sveltekit",
 	Run: func(cmd *cobra.Command, args []string) {
-		binds, err := cmd.Flags().GetBool("binds")
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
 		fields := make([]gen.FormItem, 0)
 		for _, arg := range args {
 			spl := strings.Split(arg, ":")
@@ -30,7 +24,7 @@ var formCmd = &cobra.Command{
 			})
 		}
 
-		if err := gen.Form(fields, binds); err != nil {
+		if err := gen.Form(fields); err != nil {
 			fmt.Println("Error: ", err)
 		}
 	},
@@ -38,6 +32,4 @@ var formCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(formCmd)
-
-	formCmd.Flags().BoolP("binds", "b", false, "If the form needs to use bindings")
 }

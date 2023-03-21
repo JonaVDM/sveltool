@@ -11,7 +11,7 @@ type FormItem struct {
 	Label string
 }
 
-func Form(fields []FormItem, binds bool) error {
+func Form(fields []FormItem) error {
 	contents, err := templates.ReadFile("templates/form/form.html")
 	if err != nil {
 		return err
@@ -21,14 +21,13 @@ func Form(fields []FormItem, binds bool) error {
 
 	data := map[string]any{
 		"Fields": fields,
-		"Binds":  binds,
 	}
 
 	return tmpl.Execute(os.Stdout, data)
 }
 
-func FormActions(fields []string) error {
-	contents, err := templates.ReadFile("templates/form/action.ts")
+func FormActions(fields []FormItem) error {
+	contents, err := templates.ReadFile("templates/form/action.ts.stub")
 	if err != nil {
 		return err
 	}

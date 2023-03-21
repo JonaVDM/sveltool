@@ -1,14 +1,19 @@
-{{if .Binds}}<script lang="ts">
-{{range $index, $element := .Fields}} let {{.Name}} = "";
-{{end}}</script>
+<script lang="ts">
+  import Input from '$lib/Input.svelte';
+  import { superForm } from 'sveltekit-superforms/client';
+  import type { PageData } from './$types';
 
-{{end}}<form method="post">
-  {{range $index, $element := .Fields}}{{if ne $index 0}}
+  export let data: PageData;
 
-  {{end}}<label>
-    {{.Label}}
-    <input type="{{.Kind}}" name="{{.Name}}"{{if $.Binds}} bind:value={{"{"}}{{.Name}}{{"}"}}{{end}} />
-  </label>{{end}}
-  
-  <button type="submit">Submit</button>
+  const { fields, errors, enhance } = superForm(data.form);
+</script>
+
+<form method="post" use:enhance>
+  {#if $errors.message}
+    <p style="color: red">{$errors.message}</p>
+  {/if}
+
+  {{range $index, $element := .Fields}}<Input {{if ne .Kind "text" }}type="{{.Kind}}" {{end}}label="{{.Label}}" field={fields.{{.Name}}} />
+  {{end}}
+  <button>Submit</button>
 </form>

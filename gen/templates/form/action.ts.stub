@@ -1,0 +1,36 @@
+import { fail, redirect } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
+import type { Actions, PageServerLoad } from './$types';
+import type { ClientResponseError } from 'pocketbase';
+
+// TOOD: Fill this in.
+const schema = z.object({
+  {{ range $index, $element:= .Fields }}{{ if ne $index 0}}
+  {{ end }}{{.Name}}: z.nonempty(),{{ end }}
+  message: z.string(),
+});
+
+export const load: PageServerLoad = async (event) => {
+  const form = await superValidate(event, schema);
+  return { form };
+}
+
+export const actions: Actions = {
+  default: async (event) => {
+    const form = await superValidate(event, schema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    try {
+      // TODO: Do something with the data
+    } catch (e) {
+      form.errors.message = ['Something went wrong!']
+      return fail(500, { form });
+    }
+
+    throw redirect(303, '/'); // TODO: Redirect URL
+  }
+}
