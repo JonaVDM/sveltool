@@ -47,3 +47,11 @@ func BasicApi() error {
 
 	return simpleTemplate("misc/api.ts", "src/lib/api.ts")
 }
+
+func InputComponent() error {
+	if err := utils.CreateFolder("src/lib"); err != nil {
+		return err
+	}
+
+	return simpleTemplate("misc/Input.svelte", "src/lib/Input.svelte")
+}

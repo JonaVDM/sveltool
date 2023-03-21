@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jonavdm/sveltool/gen"
+	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -12,6 +13,13 @@ var pocketbaseAuthCmd = &cobra.Command{
 	Use:   "auth",
 	Short: "Add authentication by pocketbasem, not including oauth (yet)",
 	Run: func(cmd *cobra.Command, args []string) {
+		utils.InstallPackages("pnpm", "zod", "sveltekit-superforms")
+
+		fmt.Println("\nCreating Input.svelte")
+		if err := gen.InputComponent(); err != nil {
+			fmt.Printf("Could not create: %s\n", err.Error())
+		}
+
 		fmt.Println("\nCreating hooks.client.ts")
 		if err := gen.ClientHook(); err != nil {
 			fmt.Printf("Could not create: %s\n", err.Error())

@@ -1,7 +1,11 @@
 <script lang="ts">
-  import type { ActionData } from './$types';
+  import Input from "$lib/Input.svelte";
+  import { superForm } from "sveltekit-superforms/client";
+  import type { PageData } from "./$types";
 
-  export let form: ActionData;
+  export let data: PageData;
+
+  const { fields, errors } = superForm(data.form);
 </script>
 
 <form method="post">
@@ -10,49 +14,24 @@
     <a href="/login">Login</a>
   </p>
 
-  {#if form?.message}
-    <p style="color: red">{form.message}</p>
+  {#if $errors.message}
+    <p class="error">{$errors.message}</p>
   {/if}
 
-  <div>
-    <label>
-      Username
-      {#if form?.errors.username}
-        <span style="color: red">{form?.errors.username.message}</span>
-      {/if}
-      <input type="text" name="username" value={form?.data.username || ''} />
-    </label>
-  </div>
-
-  <div>
-    <label>
-      Email
-      {#if form?.errors.email}
-        <span style="color: red">{form?.errors.email.message}</span>
-      {/if}
-      <input type="text" name="email" value={form?.data.email || ''} />
-    </label>
-  </div>
-
-  <div>
-    <label>
-      Password
-      {#if form?.errors.password}
-        <span style="color: red">{form?.errors.password.message}</span>
-      {/if}
-      <input type="password" name="password" />
-    </label>
-  </div>
-
-  <div>
-    <label>
-      Repeat password
-      {#if form?.errors.passwordConfirm}
-        <span style="color: red">{form?.errors.passwordConfirm.message}</span>
-      {/if}
-      <input type="password" name="repeat" />
-    </label>
-  </div>
+  <Input label="Username" field={fields.username} />
+  <Input label="Email" field={fields.email} />
+  <Input type="password" label="Password" field={fields.password} />
+  <Input
+    type="password"
+    label="Repeat password"
+    field={fields.passwordConfirm}
+  />
 
   <button>Login</button>
 </form>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>

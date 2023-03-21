@@ -1,7 +1,11 @@
 <script lang="ts">
-  import type { ActionData } from './$types';
+  import Input from "$lib/Input.svelte";
+  import { superForm } from "sveltekit-superforms/client";
+  import type { PageData } from "./$types";
 
-  export let form: ActionData;
+  export let data: PageData;
+
+  const { fields, errors } = superForm(data.form);
 </script>
 
 <form method="post">
@@ -10,23 +14,18 @@
     <a href="/signup">Sign up</a>
   </p>
 
-  {#if form?.message}
-    <p style="color: red">{form.message}</p>
+  {#if $errors.message}
+    <p class="error">{$errors.message}</p>
   {/if}
 
-  <div>
-    <label>
-      Email
-      <input type="text" name="email" value={form?.data.email || ''} />
-    </label>
-  </div>
-
-  <div>
-    <label>
-      Password
-      <input type="password" name="password" />
-    </label>
-  </div>
+  <Input label="Email" field={fields.email} />
+  <Input type="password" label="Password" field={fields.password} />
 
   <button>Login</button>
 </form>
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
