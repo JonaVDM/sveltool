@@ -20,19 +20,8 @@ var dockerCmd = &cobra.Command{
 			}
 		}
 
-		fmt.Print("Copying .dockerignore: ")
-		if err := gen.DockerIgnore(); err != nil {
-			fmt.Println("something went wrong!", err)
-		} else {
-			fmt.Println("Ok")
-		}
-
-		fmt.Print("Copying Dockerfile: ")
-		if err := gen.BasicDockerFile(); err != nil {
-			fmt.Println("something went wrong!", err)
-		} else {
-			fmt.Println("Ok")
-		}
+		utils.RunTemplate(".dockerignore", gen.DockerIgnore)
+		utils.RunTemplate("Dockerfile", gen.BasicDockerFile)
 	},
 }
 

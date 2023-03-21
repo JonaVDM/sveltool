@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jonavdm/sveltool/gen"
+	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -12,12 +13,7 @@ var apiWrapperCmd = &cobra.Command{
 	Use:   "api",
 	Short: "Generate a simple API wrapper, works okay with basic auth",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("Copying api.ts: ")
-		if err := gen.BasicApi(); err != nil {
-			fmt.Println("something went wrong!", err)
-		} else {
-			fmt.Println("Ok")
-		}
+		utils.RunTemplate("api.ts", gen.BasicApi)
 
 		fmt.Println("Add the following code to app.d.ts")
 		fmt.Println(`

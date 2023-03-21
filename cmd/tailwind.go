@@ -19,25 +19,10 @@ var tailwindCmd = &cobra.Command{
 			fmt.Printf("Could not intsall tailwind: %s\n", err.Error())
 		}
 
-		fmt.Println("\nCreating config for tailwind")
-		if err := gen.TailwindConfig(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating config for postcss")
-		if err := gen.PostCssConfig(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating style.css")
-		if err := gen.TailwindStyles(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating +layout.svelte")
-		if err := gen.TailwindLayout(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
+		utils.RunTemplate("tailwind.config.cjs", gen.TailwindConfig)
+		utils.RunTemplate("postcss.config.cjs", gen.PostCssConfig)
+		utils.RunTemplate("style.css", gen.TailwindStyles)
+		utils.RunTemplate("+layout.svelte", gen.TailwindLayout)
 	},
 }
 

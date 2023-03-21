@@ -19,17 +19,7 @@ var pocketbaseCmd = &cobra.Command{
 			fmt.Printf("Could not intsall pocketbase: %s\n", err.Error())
 		}
 
-		fmt.Println("\nCreating pocketbase config")
-		if err := gen.PocketBase(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("Insert the following interface into src/app.d.ts:")
-		fmt.Println(`
-interface Locals {
-	pb: import('pocketbase').default,
-}
-	`)
+		utils.RunTemplate("pocketbase.ts", gen.PocketBase)
 	},
 }
 

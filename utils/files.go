@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"os"
 )
 
@@ -15,4 +16,13 @@ func CreateFolder(folder string) error {
 		return nil
 	}
 	return err
+}
+
+func RunTemplate(file string, templ func() error) {
+	fmt.Print("Copying " + file + ": ")
+	if err := templ(); err != nil {
+		fmt.Println("something went wrong!", err)
+	} else {
+		fmt.Println("Ok")
+	}
 }

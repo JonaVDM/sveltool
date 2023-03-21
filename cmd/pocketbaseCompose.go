@@ -1,9 +1,8 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/jonavdm/sveltool/gen"
+	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -13,10 +12,7 @@ var pocketbaseComposeCmd = &cobra.Command{
 	Short:   "Creates a docker compose file with pocketbase & some tools",
 	Aliases: []string{"compose"},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("\nCreating docker-compose.yml")
-		if err := gen.PocketbaseDocker(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
+		utils.RunTemplate("docker-compose.yml", gen.PocketbaseDocker)
 	},
 }
 

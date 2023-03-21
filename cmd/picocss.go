@@ -19,10 +19,7 @@ var picocssCmd = &cobra.Command{
 			fmt.Printf("Could not intsall Pico.css: %s\n", err.Error())
 		}
 
-		fmt.Println("\nCreating +layout.svelte")
-		if err := gen.PicoCssLayout(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
+		utils.RunTemplate("+layout.svelte", gen.PicoCssLayout)
 	},
 }
 

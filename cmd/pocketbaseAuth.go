@@ -15,50 +15,15 @@ var pocketbaseAuthCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.InstallPackages("pnpm", "zod", "sveltekit-superforms")
 
-		fmt.Println("\nCreating Input.svelte")
-		if err := gen.InputComponent(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating hooks.client.ts")
-		if err := gen.ClientHook(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating hooks.server.ts")
-		if err := gen.ServerHook(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating layout.server.ts")
-		if err := gen.AuthLayout(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating login page.server.ts")
-		if err := gen.LoginServer(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating login page.svelte")
-		if err := gen.LoginPage(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating signup page.server.ts")
-		if err := gen.SignupServer(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating signup page.svelte")
-		if err := gen.SignupPage(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
-
-		fmt.Println("\nCreating logout server.ts")
-		if err := gen.LogoutServer(); err != nil {
-			fmt.Printf("Could not create: %s\n", err.Error())
-		}
+		utils.RunTemplate("Input.svelte", gen.InputComponent)
+		utils.RunTemplate("hooks.client.ts", gen.ClientHook)
+		utils.RunTemplate("hooks.server.ts", gen.ServerHook)
+		utils.RunTemplate("layout.server.ts", gen.AuthLayout)
+		utils.RunTemplate("(login) page.server.ts", gen.LoginServer)
+		utils.RunTemplate("(login) page.svelte", gen.LoginPage)
+		utils.RunTemplate("(signup) page.server.ts", gen.SignupServer)
+		utils.RunTemplate("(signup) page.svelte", gen.SignupPage)
+		utils.RunTemplate("(logout) server.ts", gen.LogoutServer)
 
 		fmt.Println(`
 Lastly add the following to src/app.d.ts
