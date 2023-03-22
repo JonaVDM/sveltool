@@ -53,5 +53,5 @@ func InputComponent() error {
 		return err
 	}
 
-	return simpleTemplate("misc/Input.svelte", "src/lib/Input.svelte")
+	return simpleTemplate("misc/Input.svelte.stub", "src/lib/Input.svelte")
 }

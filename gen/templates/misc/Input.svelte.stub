@@ -1,0 +1,48 @@
+<script lang="ts">
+	import type { FormField } from 'sveltekit-superforms';
+	import type { z, AnyZodObject } from 'zod';
+
+	type T = $$Generic<AnyZodObject>;
+	type P = $$Generic<keyof z.infer<T>>;
+
+	export let type = 'text';
+	export let label: string;
+	export let field: FormField<T, P>;
+	export let placeholder = '';
+
+	function setType(el: HTMLInputElement) {
+		el.type = type;
+	}
+
+	$: value = field.value;
+	$: errors = field.errors;
+</script>
+
+<div>
+	<label>
+		{#if type == 'checkbox'}
+			<input type="checkbox" {placeholder} bind:checked={$value} name={field.name} />
+		{/if}
+
+		{label}
+		{#if $errors}
+			- <span class="text-red-800">{$errors}</span>
+		{/if}
+
+		{#if type == 'password'}
+			<input class="w-full" type="password" {placeholder} bind:value={$value} name={field.name} />
+		{:else if type != 'checkbox'}
+			<input class="w-full" use:setType {placeholder} bind:value={$value} name={field.name} />
+		{/if}
+	</label>
+</div>
+
+<style>
+	.text-red-800 {
+		color: red;
+	}
+
+	.w-full {
+		width: 100%;
+	}
+</style>
