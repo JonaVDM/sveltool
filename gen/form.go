@@ -12,7 +12,7 @@ type FormItem struct {
 }
 
 func Form(fields []FormItem) error {
-	contents, err := templates.ReadFile("templates/form/form.html")
+	contents, err := templates.ReadFile("templates/form/form.html.stub")
 	if err != nil {
 		return err
 	}

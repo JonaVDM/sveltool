@@ -5,12 +5,12 @@
 
   export let data: PageData;
 
-  const { fields, errors, enhance } = superForm(data.form);
+  const { enhance, fields, message } = superForm(data.form);
 </script>
 
 <form method="post" use:enhance>
-  {#if $errors.message}
-    <p style="color: red">{$errors.message}</p>
+  {#if $message}
+    <p style="color: red">{$message}</p>
   {/if}
 
   {{range $index, $element := .Fields}}<Input {{if ne .Kind "text" }}type="{{.Kind}}" {{end}}label="{{.Label}}" field={fields.{{.Name}}} />
