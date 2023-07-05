@@ -1,7 +1,9 @@
 package gen
 
-func TailwindConfig() error {
-	return simpleTemplate("tailwind/tailwind.config.cjs", "tailwind.config.cjs")
+func TailwindConfig(daisy bool) error {
+	return complexTemplate("tailwind/tailwind.config.cjs.stub", "tailwind.config.cjs", map[string]bool{
+		"Daisy": daisy,
+	})
 }
 
 func PostCssConfig() error {
