@@ -1,7 +1,7 @@
 package gen
 
 func PocketbaseDocker() error {
-	return simpleTemplate("docker/pocketbase-docker-compose.yml", "docker-compose.yml")
+	return simpleTemplate("docker/pocketbase-docker-compose.yml.stub", "docker-compose.yml")
 }
 
 func DockerIgnore() error {

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    ports:
+      - 8090:8090
+    volumes:
+      - ./pb/pb_data:/pb_data
+      - ./pb/pb_migrations:/pb_migrations
+      - ./pb/pb_public:/pb_public
+      - ./pb/pb_hooks:/pb_hooks
