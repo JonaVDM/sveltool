@@ -15,7 +15,7 @@ var pocketbaseAuthCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.InstallPackages("pnpm", "zod", "sveltekit-superforms")
 
-		utils.RunTemplate("Input.svelte", gen.InputComponent)
+		// utils.RunTemplate("Input.svelte", gen.InputComponent)
 		utils.RunTemplate("hooks.client.ts", gen.ClientHook)
 		utils.RunTemplate("hooks.server.ts", gen.ServerHook)
 		utils.RunTemplate("layout.server.ts", gen.AuthLayout)

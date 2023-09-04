@@ -1,0 +1,48 @@
+<script lang="ts">
+  import type { HTMLInputTypeAttribute } from "svelte/elements";
+  import type { z, AnyZodObject } from "zod";
+  import type { ZodValidation, FormPathLeaves } from "sveltekit-superforms";
+  import { formFieldProxy, type SuperForm } from "sveltekit-superforms/client";
+
+  type T = $$Generic<AnyZodObject>;
+
+  export let form: SuperForm<ZodValidation<T>, unknown>;
+  export let field: FormPathLeaves<z.infer<T>>;
+  export let type: HTMLInputTypeAttribute = "text";
+  export let label: string | null;
+
+  function setType(el: HTMLInputElement) {
+    el.type = type;
+  }
+
+  $: computedLabel = label ? label : field;
+
+  const { value, errors, constraints } = formFieldProxy(form, field);
+</script>
+
+<label class="block py-2">
+  {computedLabel}
+  {#if $errors} - <span class="text-red-600">{$errors}</span>{/if}
+
+  {#if type == "password"}
+    <input
+      class="input input-bordered w-full"
+      name={field}
+      type="password"
+      aria-invalid={$errors ? "true" : undefined}
+      bind:value={$value}
+      {...$constraints}
+      {...$$restProps}
+    />
+  {:else}
+    <input
+      class="input input-bordered w-full"
+      name={field}
+      use:setType
+      aria-invalid={$errors ? "true" : undefined}
+      bind:value={$value}
+      {...$constraints}
+      {...$$restProps}
+    />
+  {/if}
+</label>
