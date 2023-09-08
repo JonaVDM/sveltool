@@ -1,4 +1,4 @@
-package cmd
+package packages
 
 import (
 	"fmt"
@@ -8,10 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// picocssCmd represents the picocss command
-var picocssCmd = &cobra.Command{
-	Use:   "picocss",
-	Short: "Adds Pico.css to the project for quick and easy styling",
+var picoCmd = &cobra.Command{
+	Use:     "picocss",
+	Short:   "Adds Pico.css, really easy basic styling",
+	Aliases: []string{"pico"},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Installing Pico.css")
 		manager, _ := cmd.Flags().GetString("manager")
@@ -24,6 +24,5 @@ var picocssCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(picocssCmd)
-	picocssCmd.Flags().StringP("manager", "m", "pnpm", "Set node package manager")
+	PackageCmd.AddCommand(picoCmd)
 }
