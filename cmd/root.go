@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/jonavdm/sveltool/cmd/packages"
+	"github.com/jonavdm/sveltool/cmd/pocketbase"
 	"github.com/spf13/cobra"
 )
 
@@ -35,4 +36,5 @@ func init() {
 	rootCmd.PersistentFlags().StringP("manager", "m", "pnpm", "Set node package manager")
 
 	rootCmd.AddCommand(packages.PackageCmd)
+	rootCmd.AddCommand(pocketbase.PocketbaseCmd)
 }

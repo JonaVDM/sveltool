@@ -1,4 +1,4 @@
-package cmd
+package pocketbase
 
 import (
 	"github.com/jonavdm/sveltool/gen"
@@ -6,8 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// pocketbaseComposeCmd represents the pocketbaseCompose command
-var pocketbaseComposeCmd = &cobra.Command{
+var composeCmd = &cobra.Command{
 	Use:     "docker",
 	Short:   "Creates a docker compose file with pocketbase & some tools",
 	Aliases: []string{"compose"},
@@ -17,5 +16,5 @@ var pocketbaseComposeCmd = &cobra.Command{
 }
 
 func init() {
-	pocketbaseCmd.AddCommand(pocketbaseComposeCmd)
+	PocketbaseCmd.AddCommand(composeCmd)
 }

@@ -1,4 +1,4 @@
-package cmd
+package pocketbase
 
 import (
 	"fmt"
@@ -8,12 +8,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// pocketbaseAuthCmd represents the pocketbaseAuth command
-var pocketbaseAuthCmd = &cobra.Command{
+var authCmd = &cobra.Command{
 	Use:   "auth",
 	Short: "Add authentication by pocketbasem, not including oauth (yet)",
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.InstallPackages("pnpm", "zod", "sveltekit-superforms")
+		utils.InstallPackages(cmd, "zod", "sveltekit-superforms")
 
 		// utils.RunTemplate("Input.svelte", gen.InputComponent)
 		utils.RunTemplate("hooks.client.ts", gen.ClientHook)
@@ -36,5 +35,5 @@ interface Locals {
 }
 
 func init() {
-	pocketbaseCmd.AddCommand(pocketbaseAuthCmd)
+	PocketbaseCmd.AddCommand(authCmd)
 }
