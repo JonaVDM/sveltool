@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/jonavdm/sveltool/gen"
 	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
@@ -13,17 +11,11 @@ var tailwindCmd = &cobra.Command{
 	Use:   "tailwind",
 	Short: "Add Tailwind to the application",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Installing packages")
-		manager, _ := cmd.Flags().GetString("manager")
 		daisy, _ := cmd.Flags().GetBool("daisy")
-		if err := utils.InstallPackages(manager, "tailwindcss", "postcss", "autoprefixer", "@tailwindcss/typography"); err != nil {
-			fmt.Printf("Could not intsall tailwind: %s\n", err.Error())
-		}
+		utils.InstallPackages(cmd, "tailwindcss", "postcss", "autoprefixer", "@tailwindcss/typography")
 
 		if daisy {
-			if err := utils.InstallPackages(manager, "daisyui"); err != nil {
-				fmt.Printf("Could not intsall daisy: %s\n", err.Error())
-			}
+			utils.InstallPackages(cmd, "daisyui")
 		}
 
 		utils.RunTemplate("tailwind.config.cjs", func() error { return gen.TailwindConfig(daisy) })
