@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"github.com/jonavdm/sveltool/gen"
 	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
@@ -18,7 +17,9 @@ var tailwindCmd = &cobra.Command{
 			utils.InstallPackages(cmd, "daisyui")
 		}
 
-		utils.RunTemplate("tailwind.config.cjs", func() error { return gen.TailwindConfig(daisy) })
+		utils.ComplexTemplate("tailwind/tailwind.config.cjs", "tailwind.config.cjs", map[string]bool{
+			"Daisy": daisy,
+		})
 		utils.SimpleTemplate("tailwind/postcss.config.cjs", "postcss.config.cjs")
 		utils.SimpleTemplate("tailwind/app.css", "src/app.css")
 		utils.SimpleTemplate("tailwind/+layout.svelte", "src/routes/+layout.svelte")
