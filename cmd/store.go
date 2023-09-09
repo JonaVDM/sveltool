@@ -1,10 +1,12 @@
 package cmd
 
 import (
-	"fmt"
+	"strings"
 
-	"github.com/jonavdm/sveltool/gen"
+	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // storeCmd represents the store command
@@ -13,11 +15,10 @@ var storeCmd = &cobra.Command{
 	Short: "Generate a quick store",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := gen.SvelteStore(args[0]); err != nil {
-			fmt.Println("error: ", err)
-		} else {
-			fmt.Println("Should be there now")
-		}
+		utils.ComplexTemplate("misc/store.ts", "src/lib/"+strings.ToLower(args[0])+".ts", map[string]string{
+			"Name":       cases.Title(language.Georgian).String(args[0]),
+			"ExportName": strings.ToLower(args[0]),
+		})
 	},
 }
 
