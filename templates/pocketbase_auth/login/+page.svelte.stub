@@ -1,31 +1,28 @@
 <script lang="ts">
-  import { superForm } from 'sveltekit-superforms/client';
-  import Input from '$lib/Input.svelte';
-  import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import type { PageData } from './$types';
+	import TextInput from '$lib/inputs/TextInput.svelte';
 
-  export let data: PageData;
+	export let data: PageData;
 
-  const { fields, errors } = superForm(data.form);
+	const form = superForm(data.form);
+	const { message } = form;
 </script>
 
 <form method="post">
-  <p>
-    Not an account yet?
-    <a href="/signup">Sign up</a>
-  </p>
+	<p>
+		Not an account yet?
+		<a href="/signup" class="link link-primary">Sign up</a>
+	</p>
 
-  {#if $errors.message}
-    <p class="error">{$errors.message}</p>
-  {/if}
+	{#if $message}
+		<div class="alert alert-error my-4">
+			<span>{$message}</span>
+		</div>
+	{/if}
 
-  <Input label="Email" field={fields.email} />
-  <Input type="password" label="Password" field={fields.password} />
+	<TextInput label="Email" field="email" {form} />
+	<TextInput type="password" label="Password" field="password" {form} />
 
-  <button>Login</button>
+	<button class="btn btn-primary">Login</button>
 </form>
-
-<style>
-  .error {
-    color: red;
-  }
-</style>

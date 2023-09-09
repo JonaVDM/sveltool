@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms/server';
+import { setError, setMessage, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import type { Actions, PageServerLoad } from './$types';
 import type { ClientResponseError } from 'pocketbase';
@@ -29,7 +29,12 @@ export const actions: Actions = {
         .authWithPassword(form.data.email, form.data.password);
     } catch (e) {
       const err = e as ClientResponseError;
-      form.errors.message = [err.data.message]
+      setMessage(form, err.data.message);
+
+      for (const k in err.response.data) {
+        setError(form, k, err.response.data[k].message);
+      }
+
       return fail(401, { form });
     }
 
