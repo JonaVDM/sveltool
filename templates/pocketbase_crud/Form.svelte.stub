@@ -1,0 +1,27 @@
+<script lang="ts">
+  import { enhance } from "$app/forms";
+  import { superForm } from "sveltekit-superforms/client";
+  import Checkbox from "$lib/forms/checkbox.svelte";
+  import Textbox from "$lib/forms/Textbox.svelte";
+  import TextInput from "$lib/forms/TextInput.svelte";
+  import type { AnyZodObject } from "zod";
+  import type { SuperValidated } from "sveltekit-superforms";
+
+  export let dataForm: SuperValidated<AnyZodObject, any>;
+  export let button: string;
+
+  const form = superForm(dataForm);
+  const { message } = parsedForm;
+</script>
+
+<form method="post" class="py-2" use:enhance>
+  {#if $message}
+    <div class="alert alert-error my-2">
+      {$message}
+    </div>
+  {/if}
+
+  <!-- TODO -->
+
+  <button class="btn btn-primary">{button}</button>
+</form>

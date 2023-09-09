@@ -1,0 +1,10 @@
+<script lang="ts">
+  export let data;
+</script>
+
+<div class="py-2 flex justify-between">
+  <a href="/posts" class="text-2xl">Posts</a>
+  <a href="/posts/new" class="btn btn-primary">New</a>
+</div>
+
+<!-- TODO: Show data is some sort of overview -->

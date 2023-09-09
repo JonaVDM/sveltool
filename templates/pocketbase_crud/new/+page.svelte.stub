@@ -1,0 +1,8 @@
+<script lang="ts">
+  import PostForm from "../PostForm.svelte";
+
+  export let data;
+</script>
+
+<a href="/posts" class="link link-secondary">Back to overview</a>
+<PostForm form={data.form} button="Create" />

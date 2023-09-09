@@ -1,0 +1,10 @@
+import { z } from 'zod';
+import type { RecordModel } from 'pocketbase';
+
+export const postSchema = z.object({
+  // TODO
+});
+
+export interface PostRecord extends RecordModel {
+  // TODO
+}

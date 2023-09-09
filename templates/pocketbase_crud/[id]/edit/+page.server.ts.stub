@@ -1,0 +1,35 @@
+import { fail, redirect } from '@sveltejs/kit';
+import { pb } from '$lib/pocketbase';
+import { postSchema, type PostRecord } from '../../postTypes';
+import { setError, superValidate } from 'sveltekit-superforms/server';
+import type { Actions, PageServerLoad } from './$types';
+import type { ClientResponseError } from 'pocketbase';
+
+export const load: PageServerLoad = async ({ params }) => {
+  const data = await pb.collection('posts').getOne<PostRecord>(params.id)
+  const form = await superValidate(data, postSchema);
+  return { form };
+}
+
+export const actions: Actions = {
+  default: async ({ request, params }) => {
+    const form = await superValidate(request, postSchema);
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    try {
+      await pb.collection('posts').update(params.id, { ...form.data });
+    } catch (e) {
+      const error = e as ClientResponseError;
+      for (let k in error.response.data) {
+        setError(form, k, error.response.data[k].message);
+      }
+
+      return fail(400, { form });
+    }
+
+    throw redirect(303, `/posts/${params.id}`);
+  }
+}

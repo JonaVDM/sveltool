@@ -1,0 +1,19 @@
+<script lang="ts">
+  import { enhance } from "$app/forms";
+
+  export let data;
+</script>
+
+<h2 class="text-2xl">Posts</h2>
+<a href="/posts" class="link link-primary">Back to overview</a>
+<a href="/posts/{data.post.id}/edit" class="btn btn-secondary px-10">
+  Edit
+</a>
+
+<form action="?/delete" method="post" use:enhance>
+  <button class="btn btn-error px-10" name="id" value={data.post.id}>
+    Delete
+  </button>
+</form>
+
+<!-- TODO: Show data somehow -->

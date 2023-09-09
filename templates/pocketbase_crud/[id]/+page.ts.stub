@@ -1,0 +1,9 @@
+import { pb } from '$lib/pocketbase'
+import type { PageLoad } from './$types'
+import type { PostRecord } from '../postTypes'
+
+export const load: PageLoad = ({ params }) => {
+  return {
+    post: pb.collection('posts').getOne<PostRecord>(params.id),
+  }
+}
