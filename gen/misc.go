@@ -6,10 +6,6 @@ import (
 	"github.com/jonavdm/sveltool/utils"
 )
 
-func PicoCssLayout() error {
-	return simpleTemplate("misc/picocss-layout.svelte", "src/routes/+layout.svelte")
-}
-
 func SvelteStore(name string) error {
 	if err := utils.CreateFolder("src/lib"); err != nil {
 		return err
@@ -38,12 +34,4 @@ func NavBar(auth bool) error {
 	}
 
 	return complexTemplate("misc/nav.svelte", "src/lib/Nav.svelte", args)
-}
-
-func BasicApi() error {
-	if err := utils.CreateFolder("src/lib"); err != nil {
-		return err
-	}
-
-	return simpleTemplate("misc/api.ts", "src/lib/api.ts")
 }

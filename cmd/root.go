@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/jonavdm/sveltool/cmd/components"
 	"github.com/jonavdm/sveltool/cmd/packages"
 	"github.com/jonavdm/sveltool/cmd/pocketbase"
 	"github.com/spf13/cobra"
@@ -37,4 +38,5 @@ func init() {
 
 	rootCmd.AddCommand(packages.PackageCmd)
 	rootCmd.AddCommand(pocketbase.PocketbaseCmd)
+	rootCmd.AddCommand(components.ComponentCmd)
 }

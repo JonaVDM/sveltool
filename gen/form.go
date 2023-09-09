@@ -3,6 +3,8 @@ package gen
 import (
 	"os"
 	"text/template"
+
+	"github.com/jonavdm/sveltool/templates"
 )
 
 type FormItem struct {
@@ -12,7 +14,7 @@ type FormItem struct {
 }
 
 func Form(fields []FormItem) error {
-	contents, err := templates.ReadFile("templates/form/form.html.stub")
+	contents, err := templates.Load("form/form.html")
 	if err != nil {
 		return err
 	}
@@ -27,7 +29,7 @@ func Form(fields []FormItem) error {
 }
 
 func FormActions(fields []FormItem) error {
-	contents, err := templates.ReadFile("templates/form/action.ts.stub")
+	contents, err := templates.Load("form/action.ts")
 	if err != nil {
 		return err
 	}

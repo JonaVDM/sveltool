@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"github.com/jonavdm/sveltool/gen"
 	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
@@ -15,8 +14,8 @@ var dockerCmd = &cobra.Command{
 			utils.InstallPackages(cmd, "@sveltejs/adapter-node")
 		}
 
-		utils.RunTemplate(".dockerignore", gen.DockerIgnore)
-		utils.RunTemplate("Dockerfile", gen.BasicDockerFile)
+		utils.SimpleTemplate("docker/Dockerfile", "Dockerfile")
+		utils.SimpleTemplate("docker/.dockerignore", ".dockerignore")
 	},
 }
 

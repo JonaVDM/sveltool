@@ -1,7 +1,8 @@
 package packages
 
 import (
-	"github.com/jonavdm/sveltool/gen"
+	"fmt"
+
 	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
@@ -13,7 +14,12 @@ var picoCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.InstallPackages(cmd, "@picocss/pico")
 
-		utils.RunTemplate("+layout.svelte", gen.PicoCssLayout)
+		if err := utils.CreateFolder("src/lib"); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		utils.SimpleTemplate("misc/picocss-layout.svelte", "src/routes/+layout.svelte")
 	},
 }
 

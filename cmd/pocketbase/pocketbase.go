@@ -1,7 +1,8 @@
 package pocketbase
 
 import (
-	"github.com/jonavdm/sveltool/gen"
+	"fmt"
+
 	"github.com/jonavdm/sveltool/utils"
 	"github.com/spf13/cobra"
 )
@@ -11,8 +12,13 @@ var PocketbaseCmd = &cobra.Command{
 	Use:   "pocketbase",
 	Short: "Install different parts of pocketbase",
 	Run: func(cmd *cobra.Command, args []string) {
+		if err := utils.CreateFolder("src/lib"); err != nil {
+			fmt.Println(err)
+			return
+		}
+
 		utils.InstallPackages(cmd, "pocketbase")
-		utils.RunTemplate("pocketbase.ts", gen.PocketBase)
+		utils.SimpleTemplate("pocketbase/pocketbase.ts", "src/lib/pocketbase.ts")
 	},
 }
 

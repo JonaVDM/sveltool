@@ -19,9 +19,9 @@ var tailwindCmd = &cobra.Command{
 		}
 
 		utils.RunTemplate("tailwind.config.cjs", func() error { return gen.TailwindConfig(daisy) })
-		utils.RunTemplate("postcss.config.cjs", gen.PostCssConfig)
-		utils.RunTemplate("style.css", gen.TailwindStyles)
-		utils.RunTemplate("+layout.svelte", gen.TailwindLayout)
+		utils.SimpleTemplate("tailwind/postcss.config.cjs", "postcss.config.cjs")
+		utils.SimpleTemplate("tailwind/app.css", "src/app.css")
+		utils.SimpleTemplate("tailwind/+layout.svelte", "src/routes/+layout.svelte")
 	},
 }
 

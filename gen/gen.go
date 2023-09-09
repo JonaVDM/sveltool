@@ -1,39 +1,19 @@
 package gen
 
 import (
-	"embed"
 	"errors"
 	"os"
 	"text/template"
+
+	"github.com/jonavdm/sveltool/templates"
 )
-
-//go:embed templates/*
-var templates embed.FS
-
-func gen(filename string, contents []byte) error {
-	if _, err := os.Stat(filename); err == nil {
-		return errors.New("file already exists")
-	}
-
-	return os.WriteFile(filename, contents, 0664)
-}
-
-func simpleTemplate(source, dest string) error {
-	contents, err := templates.ReadFile("templates/" + source)
-
-	if err != nil {
-		return err
-	}
-
-	return gen(dest, contents)
-}
 
 func complexTemplate(source, dest string, args any) error {
 	if _, err := os.Stat(dest); err == nil {
 		return errors.New("file already exists")
 	}
 
-	contents, err := templates.ReadFile("templates/" + source)
+	contents, err := templates.Load(source)
 	if err != nil {
 		return err
 	}

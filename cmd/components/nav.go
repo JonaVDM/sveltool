@@ -1,4 +1,4 @@
-package cmd
+package components
 
 import (
 	"log"
@@ -22,6 +22,6 @@ var navCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(navCmd)
+	ComponentCmd.AddCommand(navCmd)
 	navCmd.Flags().BoolP("authed", "a", false, "Separate authed/non-authed bars")
 }
